@@ -1,16 +1,52 @@
-.user-input-center{
-    position: relative;
-    top: 50%;
-    line-height: 1rem;
-    transform: translateY(-50%);
-    line-height: 2rem;
+
+
+/* 竖屏 */
+@media screen and (orientation:portrait) {
+    .user-input-center{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 22px;
+        font-size: 12px;
+    }
+    .user-input-center input {
+        width: 100px;
+        font-size: 12px;
+        height: 14px;
+        border: none;
+        outline: none;
+    }
+    .user-input-center button {
+        width: 100px;
+        background-color: rgb(63, 77, 234);
+        color: aliceblue;
+        border: none;
+        font-size: 12px;
+        margin-top: 10px;
+    }
 }
-.user-input-center input {
-    width: 100px;
-}
-.user-input-center button {
-    width: 100px;
-    background-color: rgb(63, 77, 234);
-    color: aliceblue;
-    border: none;
+/* 横屏 */
+@media screen and (orientation:landscape) {
+    .user-input-center{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 2rem;
+        font-size: 1rem;
+    }
+    .user-input-center input {
+        width: 100px;
+        font-size: 1rem;
+        height: 1rem;
+        border: none;
+        outline: none;
+    }
+    .user-input-center button {
+        width: 100px;
+        background-color: rgb(63, 77, 234);
+        color: aliceblue;
+        border: none;
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
 }

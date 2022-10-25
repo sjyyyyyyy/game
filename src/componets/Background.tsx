@@ -191,7 +191,7 @@ function Background(props:Bjprops){
         <div className="game-background" 
         style={{width:props.width + "px", height: props.height + "px" }} ref={container}>
         <div style={{display: props.gameState !== GameSate.running ? 'block' : 'none' }} className="masklayer"></div>
-        <span style={{display: props.gameState === GameSate.again ? 'inline-block'  : 'none' }} >敲击空格开始游戏</span>
+        <span style={{display: props.gameState === GameSate.again ? 'inline-block'  : 'none' }} className="game-again" >敲击空格开始游戏</span>
         <div style={{display: props.gameState === GameSate.fail ? 'grid'  : 'none' }} className="game-fail" >
             <FailGame />
             <UserList gameState={props.gameState} />

@@ -1,11 +1,28 @@
-.userlist{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    list-style-type: none;
-    text-align: left;
-    z-index: 30;
-    font-size: 10px;
-    padding: 0;
-    margin: 0;
+/* 竖屏 */
+@media screen and (orientation:portrait) {
+	.userlist{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        list-style-type: none;
+        text-align: left;
+        z-index: 30;
+        font-size: 10px;
+        padding: 0;
+        margin: 0;
+    }
+}
+/* 横屏 */
+@media screen and (orientation:landscape) {
+	.userlist{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        list-style-type: none;
+        text-align: left;
+        z-index: 30;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+    }
 }

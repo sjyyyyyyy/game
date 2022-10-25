@@ -1,7 +1,23 @@
-.fail-game-text{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    z-index: 30;
+
+/* 竖屏 */
+@media screen and (orientation:portrait) {
+	.fail-game-text{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        z-index: 30;
+        font-size: 12px;
+    }
+}
+/* 横屏 */
+@media screen and (orientation:landscape) {
+	.fail-game-text{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        z-index: 30;
+        font-size: 1rem;
+    }
 }

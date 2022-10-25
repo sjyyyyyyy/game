@@ -5,12 +5,25 @@ html, body, #root {
     margin: 0;
     background-color: #3a0303;
 }
-.game-container{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
+/* 竖屏 */
+@media screen and (orientation:portrait) {
+	.game-container{
+        position: relative;
+        top: 50%;
+        transform: translateY(-70%);
+        margin: 0 auto;
+    }
 }
+/* 横屏 */
+@media screen and (orientation:landscape) {
+	.game-container{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0 auto;
+    }
+}
+
 .user-login{
     grid-template-columns: 1fr 1fr;
     z-index: 999;
