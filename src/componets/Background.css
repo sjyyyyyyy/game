@@ -1,16 +1,13 @@
-.bj{
-    
-}
 .masklayer{
    position: absolute;
    height: 100%;
    width: 100%;
    opacity: .5; 
-   z-index: 10;
-   background-color: aliceblue;
+   z-index: 20;
+   background-color: #52a10a;
 }
-.bj span{
-    z-index: 20;
+.game-background span{
+    z-index: 30;
     color: aliceblue;
     display: inline-block;
     position: absolute;
@@ -25,9 +22,17 @@
     display: inline !important;
     text-align: left !important;
     width: 50%  !important;
+    font-size: .5rem;
 }
 canvas {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 5;
+}
+.game-fail{
+    grid-template-columns: 1fr 1fr;
+    z-index: 999;
+    color: #FFF;
+    height: 100%;
 }

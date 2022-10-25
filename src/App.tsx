@@ -1,33 +1,24 @@
 import { useState } from 'react';
 import './App.css';
-import Bj from './componets/Bj';
-
-let username:string | null = sessionStorage.getItem("username")
-
+import Background from './componets/Background';
+import UserForm from './componets/UserForm';
+import UserList from './componets/UserList';
+import { GameSate } from './utils/types';
 function App() {
-
-  const [isLogin, setLogin] = useState(1)
-  const [userInput, setUserInput] = useState("")
-
-
+  const [gameState, setGameState] = useState(1)
+  const [scrollWidth, setScrollWidth] = useState(document.body.scrollWidth)
+  const [scrollHeight, setScrollHeight] = useState(document.body.scrollWidth / 2)
+  window.onresize = ()=>{
+    setScrollWidth(document.body.scrollWidth)
+    setScrollHeight(document.body.scrollWidth / 2)
+  }
   return (<>
-    <div className='gamelogin'>
-      <div className='login' style={{display:isLogin === 1?"block":"none"}} >
-        <span>本游戏输入用户名后才可以开始游戏</span> <br />
-        请输入您的用户名：
-        <input type="text" value={userInput} onChange={(e)=>{
-          setUserInput((s)=>{
-            return e.target.value
-          })
-        }} />
-        <button onClick={()=>{
-          if ( userInput !== "" ) {
-            sessionStorage.setItem("username", userInput)
-            setLogin(0)
-          }
-        }}>开始游戏</button>
+    <div className='game-container'>
+      <div className='user-login' style={{display:gameState === GameSate.notLogin ? "grid" : "none"}} >
+        <UserForm gameState={gameState} setGameState={setGameState} />
+        <UserList gameState={gameState} />
       </div>
-      <Bj  width={document.body.scrollWidth - 20}  isStart={isLogin}  height={document.body.scrollWidth / 3} />
+      <Background  width={scrollWidth}  gameState={gameState} setGameState={setGameState}  height={scrollHeight} />
     </div>
   </>)
 }

@@ -1,0 +1,16 @@
+.user-input-center{
+    position: relative;
+    top: 50%;
+    line-height: 1rem;
+    transform: translateY(-50%);
+    line-height: 2rem;
+}
+.user-input-center input {
+    width: 100px;
+}
+.user-input-center button {
+    width: 100px;
+    background-color: rgb(63, 77, 234);
+    color: aliceblue;
+    border: none;
+}
