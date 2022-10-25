@@ -9,6 +9,7 @@ import fail from "../audio/fail.mp3"
 import happtroll from "../audio/happtroll.mp3"
 import "./Bj.css"
 import Player from "../utils/Player"
+import axios from "axios"
 const img = new Image()
 const jl = new Image()
 const wall = new Image()
@@ -79,9 +80,11 @@ function Bj(props:Bjprops){
             wallCount = 0
         }
         step= step+0.001
+        
         setPoint((point)=>{
             return point+1
         })
+
         wallCount++
         const wallX = wallCount * step * -1  / rate + props.width
         const wallw = 80 / rate
@@ -100,6 +103,18 @@ function Bj(props:Bjprops){
                 startUp = false
                 Player.getInstance(happtroll).pause();
                 Player.getInstance(fail).play();
+                
+
+                setPoint((point)=>{
+                    const user = sessionStorage.getItem("username")
+                    const getUrl = ` http://order.80boys.com/?username=${user}&point=${point}`
+                    axios.get(getUrl)
+                    console.log( getUrl )
+                    return point
+                })
+
+                
+
             }
         }
     }
