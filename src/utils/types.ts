@@ -1,4 +1,5 @@
 export type Bjprops = {
     width: number,
-    height: number
+    height: number,
+    isStart: number
 }

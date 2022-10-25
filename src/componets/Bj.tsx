@@ -32,7 +32,6 @@ let wallCount = 0
 const frame = 20
 let lock = false
 function Bj(props:Bjprops){
-    const [isStart, setStart] = useState(1)
     const [point, setPoint] = useState(0)
     const container:RefObject<HTMLDivElement> = React.createRef()
     useEffect(()=>{
@@ -98,7 +97,6 @@ function Bj(props:Bjprops){
         if ( wallX < jlx + jlw && wallX + wallw > jlx )  {
             if ( jumpHeight / rate > 256 / rate ) {
                 wallCount = 0
-                setStart(2)
                 startUp = false
                 Player.getInstance(happtroll).pause();
                 Player.getInstance(fail).play();
@@ -146,22 +144,27 @@ function Bj(props:Bjprops){
             )
         }
     }
-    window.onkeydown = ()=>{
-        if ( isStart > 0 ) {
+    useEffect(()=>{
+        if ( props.isStart > 0 ) {
             startUp = true
             setPoint(0)
             step = 5
-            setStart(0)
-            Player.getInstance(happtroll, true).play();
+        }
+        if  ( props.isStart  === 0 ) {
             run(0)
-        } else {
-            if ( lock === false ) {
-                lock = true
-                Player.getInstance(justmp3).play();
-                jump()
+            Player.getInstance(happtroll, true).play();
+        }
+        window.onkeydown = (e)=>{
+            if ( e.keyCode === 32  ) {
+                if ( lock === false ) {
+                    lock = true
+                    Player.getInstance(justmp3).play();
+                    jump()
+                }
             }
         }
-    }
+    }, [props.isStart])
+    
     const jump =(isUp:boolean = true, jumpStep:number = 10)=>{
         if ( jumpHeight < 20 && isUp === true ) {
             isUp = false
@@ -188,9 +191,9 @@ function Bj(props:Bjprops){
     return (
         <div className="bj" 
         style={{width:props.width + "px", height: props.height + "px" }} ref={container}>
-        <div style={{display: isStart > 0 ? 'block' : 'none' }} className="masklayer"></div>
-        <span style={{display: isStart === 1 ? 'inline-block'  : 'none' }} >点击键盘开始游戏</span>
-        <span style={{display: isStart === 2 ? 'inline-block'  : 'none' }} >游戏失败了！点击键盘重新开始</span>
+        <div style={{display: props.isStart > 0 ? 'block' : 'none' }} className="masklayer"></div>
+        <span style={{display: props.isStart === 1 ? 'inline-block'  : 'none' }} ></span>
+        <span style={{display: props.isStart === 2 ? 'inline-block'  : 'none' }} >游戏失败了！点击键盘重新开始</span>
         <span className="point">{point}</span>
     </div>
     )
