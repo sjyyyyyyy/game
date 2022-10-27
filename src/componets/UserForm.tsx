@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { GameSate } from "../utils/types"
 import "./UserForm.css"
-function UserForm(props:any){
+const UserForm = memo((props:any) =>{
+    console.log("UserForm 渲染了")
     const [userInput, setUserInput] = useState(sessionStorage.getItem("username"))
     useEffect(()=>{
         if ( userInput !== "" && userInput !== null ) {
@@ -28,5 +29,5 @@ function UserForm(props:any){
             </div>
         </div>
     </>)
-}
+})
 export default UserForm

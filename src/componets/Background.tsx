@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useEffect, useState } from "react"
+import React, { memo, RefObject, useCallback, useEffect, useMemo, useState } from "react"
 import { Bjprops, GameSate } from "../utils/types"
 import imgbin from "../img/map.png"
 import justmp3 from "../audio/just.mp3"
@@ -11,7 +11,8 @@ import VAR from "../utils/GlobalData"
 import UserList from "./UserList"
 import FailGame from "./FailGame"
 import CanvasEle from "./CanvasEle"
-function Background(props:Bjprops){
+const Background = memo((props:Bjprops) =>{
+    console.log("Background 渲染了")
     const [point, setPoint] = useState(0)
     useEffect(()=>{
         VAR.img.src = imgbin
@@ -184,18 +185,29 @@ function Background(props:Bjprops){
         VAR.ctx1  = VAR.canvas1?.getContext("2d")
         VAR.ctx2 = VAR.canvas2?.getContext("2d")
     }, [])
+
+
+    const gameStateMemo = useMemo(()=>{
+        return props.gameState
+      }, [props.gameState])
+
+
+      
+    const test = useCallback(()=>{
+
+    }, [])
     return (
         <div className="game-background" 
         style={{width:props.width + "px", height: props.height + "px" }} >
         <div style={{display: props.gameState !== GameSate.running ? 'block' : 'none' }} className="masklayer"></div>
         <span style={{display: props.gameState === GameSate.again ? 'inline-block'  : 'none' }} className="game-again" >敲击空格开始游戏</span>
         <div style={{display: props.gameState === GameSate.fail ? 'grid'  : 'none' }} className="game-fail" >
-            <FailGame />
-            <UserList gameState={props.gameState} />
+            <FailGame test={test} />
+            <UserList gameState={gameStateMemo} />
         </div>
         <span className="point">{point}分</span>
         <CanvasEle width={props.width} height={props.height} reRender={reRenderFunc} />
     </div>
     )
-}
+})
 export default Background

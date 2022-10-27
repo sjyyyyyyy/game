@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import { getUserPoint } from "../utils/request"
 import { GameSate } from "../utils/types"
 import "./UserList.css"
-function UserList(props:{
+const UserList = memo((props:{
       gameState:GameSate
-}){
+}) =>{
+    console.log("UserList 渲染了" , props.gameState )
     const [userList, setUserList] = useState([{username:"",id:0,point:0}])
     useEffect(()=>{
       if ( props.gameState !== GameSate.running ) {
@@ -13,6 +14,9 @@ function UserList(props:{
             setUserList(e.data)
           }
         })
+      }
+      return ()=>{
+        console.log("卸载Effect") 
       }
     }, [props.gameState])
     return (
@@ -27,5 +31,5 @@ function UserList(props:{
             </ul>
         </div>
     )
-}
+})
 export default UserList
