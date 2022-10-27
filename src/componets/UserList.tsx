@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { getUserPoint } from "../utils/request"
 import { GameSate } from "../utils/types"
 import "./UserList.css"
@@ -6,7 +6,7 @@ function UserList(props:{
       gameState:GameSate
 }){
     const [userList, setUserList] = useState([{username:"",id:0,point:0}])
-    useMemo(()=>{
+    useEffect(()=>{
       if ( props.gameState !== GameSate.running ) {
         getUserPoint().then((e)=>{
           if ( e.status === 200 ) {
