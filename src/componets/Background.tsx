@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from "react"
+import React, { RefObject, useCallback, useEffect, useState } from "react"
 import { Bjprops, GameSate } from "../utils/types"
 import imgbin from "../img/map.png"
 import justmp3 from "../audio/just.mp3"
@@ -10,31 +10,20 @@ import { pushUserPoint } from "../utils/request"
 import VAR from "../utils/GlobalData"
 import UserList from "./UserList"
 import FailGame from "./FailGame"
+import CanvasEle from "./CanvasEle"
 function Background(props:Bjprops){
     const [point, setPoint] = useState(0)
-    const container:RefObject<HTMLDivElement> = React.createRef()
     useEffect(()=>{
-        if ( container.current !== null ) {
-            container.current.append(VAR.canvas)
-            container.current.append(VAR.canvas1)
-            container.current.append(VAR.canvas2)
-            VAR.img.src = imgbin
-            VAR.img.onload  = ()=>{
-                VAR.canvas.width = props.width
-                VAR.canvas.height = props.height
-                VAR.canvas1.width = props.width
-                VAR.canvas1.height = props.height
-                VAR.canvas2.width = props.width
-                VAR.canvas2.height = props.height
-                VAR.rate = VAR.img.height / props.height
-                VAR.maxCount = Math.floor( VAR.img.width / VAR.step )
-                VAR.minCount = Math.floor( (VAR.img.width - props.width * VAR.rate ) / VAR.step )
-                VAR.jumpHeight =VAR. baseJumpHeight
-                drawBj( VAR.step, 0 )
-                VAR.startUp = true
-            }
-            return ()=>{}
+        VAR.img.src = imgbin
+        VAR.img.onload  = ()=>{
+            VAR.rate = VAR.img.height / props.height
+            VAR.maxCount = Math.floor( VAR.img.width / VAR.step )
+            VAR.minCount = Math.floor( (VAR.img.width - props.width * VAR.rate ) / VAR.step )
+            VAR.jumpHeight =VAR. baseJumpHeight
+            drawBj( VAR.step, 0 )
+            VAR.startUp = true
         }
+        return ()=>{}
     }, [props.width])
     const run = ( num: number = 0)=>{
         if ( num >= VAR.maxCount ) {
@@ -187,9 +176,17 @@ function Background(props:Bjprops){
             jump(isUp, jumpStep)
         }, 12)
     }
+    const reRenderFunc = useCallback((canvas1: React.RefObject<HTMLCanvasElement>, canvas2: React.RefObject<HTMLCanvasElement>, canvas3: React.RefObject<HTMLCanvasElement>)=>{
+        VAR.canvas = canvas1.current
+        VAR.canvas1 = canvas2.current
+        VAR.canvas2 = canvas3.current
+        VAR.ctx = VAR.canvas?.getContext("2d")
+        VAR.ctx1  = VAR.canvas1?.getContext("2d")
+        VAR.ctx2 = VAR.canvas2?.getContext("2d")
+    }, [])
     return (
         <div className="game-background" 
-        style={{width:props.width + "px", height: props.height + "px" }} ref={container}>
+        style={{width:props.width + "px", height: props.height + "px" }} >
         <div style={{display: props.gameState !== GameSate.running ? 'block' : 'none' }} className="masklayer"></div>
         <span style={{display: props.gameState === GameSate.again ? 'inline-block'  : 'none' }} className="game-again" >敲击空格开始游戏</span>
         <div style={{display: props.gameState === GameSate.fail ? 'grid'  : 'none' }} className="game-fail" >
@@ -197,6 +194,7 @@ function Background(props:Bjprops){
             <UserList gameState={props.gameState} />
         </div>
         <span className="point">{point}分</span>
+        <CanvasEle width={props.width} height={props.height} reRender={reRenderFunc} />
     </div>
     )
 }
