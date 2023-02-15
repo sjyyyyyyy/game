@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { getUserPoint } from "../utils/request"
 import { GameSate } from "../utils/types"
 import "./UserList.css"

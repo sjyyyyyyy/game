@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { GameSate } from "../utils/types"
 import "./UserForm.css"
 const UserForm = memo((props:any) =>{
